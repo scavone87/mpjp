@@ -18,10 +18,10 @@ class S02Test {
     @Test
     void speedInfinity() {
         double actual = S02.speed(100, 0);
-
+        
         assertThat(actual, is(Double.POSITIVE_INFINITY));
     }
-
+    
     @Test
     void distanceSquareTwo() {
         double actual = S02.distance(1, 10, 2, 9);
@@ -62,6 +62,13 @@ class S02Test {
         int actual = S02.digitSum(-123);
 
         assertThat(actual, is(6));
+    }
+    
+    @Test
+    void digitSumNegativePlus() {
+        int actual = S02.digitSum(-180);
+
+        assertThat(actual, is(9));
     }
 
     @Test
