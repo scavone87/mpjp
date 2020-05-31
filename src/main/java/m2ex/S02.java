@@ -22,9 +22,7 @@ public class S02 {
 	 * @return distance
 	 */
 	public static double distance(int x0, int y0, int x1, int y1) {
-		Punto p1 = new Punto(x0, y0);
-		Punto p2 = new Punto(x1, y1);
-		return Math.sqrt(Math.pow(p2.getX() - p1.getX(), 2) + Math.pow(p2.getY() - p1.getY(), 2));
+		return Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2));
 	}
 
 	/**
@@ -36,7 +34,7 @@ public class S02 {
 	 * @return the engine capacity in cm^3
 	 */
 	public static double engineCapacity(double bore, double stroke, int nr) {
-		return (Math.pow(bore / 2, 2) * Math.PI * stroke * nr) / 1000;
+		return (Math.pow(bore / 2, 2) * Math.PI * stroke * nr) * 0.001;
 	}
 
 	/**
@@ -46,20 +44,14 @@ public class S02 {
 	 * @return sum of digits
 	 */
 	public static int digitSum(int value) {
-		if(value < 0) {
-			value = value * -1;
-		}
+		value = Math.abs(value);
 		StringBuilder numericString = new StringBuilder().append(value);
-		char[] arrayNumberChar = numericString.toString().toCharArray();
 		int somma = 0;
-		if (arrayNumberChar.length >= 2) {
-			for (int i = 0; i < arrayNumberChar.length; i++) {
-				int number = Character.getNumericValue(arrayNumberChar[i]);
-				somma += number;
-			}
-			return somma;
+		for (int i = 0; i < numericString.toString().length(); i++) {
+			 int cipher = Character.digit(numericString.toString().charAt(i), 10);
+			 somma += cipher;
 		}
-		return value;
+		return somma;
 	}
 
 	/**
