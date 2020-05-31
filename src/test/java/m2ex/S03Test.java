@@ -3,6 +3,7 @@ package m2ex;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 class S03Test {
@@ -68,6 +69,13 @@ class S03Test {
         char actual = S03.vote(90);
 
         assertThat(actual, is('B'));
+    }
+    
+    @Test
+    void voteInammissible() {
+    	Assertions.assertThrows(IllegalArgumentException.class, () -> {
+    		S03.vote(-100.00);
+    	});
     }
 
     @Test

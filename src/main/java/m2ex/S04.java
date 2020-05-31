@@ -9,8 +9,11 @@ public class S04 {
 	 * @return the sum of all the numbers, or zero
 	 */
 	public static long sum(int first, int last) {
-		// TODO
-		return 0;
+		int sum = 0;
+		for (int i = first; i <= last; i++) {
+			sum += i;
+		}
+		return sum;
 	}
 
 	/**
@@ -21,8 +24,14 @@ public class S04 {
 	 * @return the sum of all the even numbers, or zero
 	 */
 	public static long evenSum(int first, int last) {
-		// TODO
-		return 0;
+		int sum = 0;
+		if(first % 2 == 1) {
+			first++;
+		}
+		for (int i = first; i <= last; i+=2) {
+			sum += i;
+		}
+		return sum;
 	}
 
 	/**
@@ -33,8 +42,14 @@ public class S04 {
 	 * @return calculated square root
 	 */
 	public static double sqrt(double value) {
-	    // TODO
-	    return 0.0;
+		if (value < 0) {
+			return Double.NaN;
+		}
+        double EPSILON = 1E-3;
+        double result = value;
+        while (Math.abs(result - value/result) > EPSILON*result)
+            result = (value/result + result) / 2.0;
+        return result;
 	}
 
 	/**
@@ -45,8 +60,13 @@ public class S04 {
 	 * @return calculated square root
 	 */
     public static double sqrt(double value, double epsilon) {
-        // TODO
-        return 0.0;
+    	if (value < 0) {
+			return Double.NaN;
+		}
+    	double result = value;
+        while (Math.abs(result - value/result) > epsilon*result)
+            result = (value/result + result) / 2.0;
+        return result;
     }
 	
 	/**
@@ -56,8 +76,12 @@ public class S04 {
 	 * @return factorial of input value, or zero
 	 */
 	public static long factorial(int value) {
-		// TODO
-		return 0;
+		if(value < 0) {
+			return 0;
+		} else if(value <= 1) {
+			return 1;
+		}
+		return value * factorial(value - 1);
 	}
 
 	/**
@@ -67,8 +91,12 @@ public class S04 {
 	 * @return the Fibonacci number of value, or zero
 	 */
 	public static long fibonacci(int value) {
-		// TODO
-		return 0;
+		if(value == 0) {
+			return 0;
+		} else if(value == 1) {
+			return 1;
+		}
+		return value + fibonacci(value-1) + fibonacci(value -2);
 	}
 
 	/**
@@ -78,10 +106,12 @@ public class S04 {
 	 * @return The multiplication table for value, when possible
 	 */
 	public static int[][] multiplicationTable(int value) {
-		int[][] result = new int[0][0];
-
-		// TODO
-
+		int[][] result = new int[value][value];
+		for (int i = 1; i <= result.length; i++) {
+			for (int j = 1; j <= result.length; j++) {
+				result[i-1][j-1] = i * j;
+			}
+		}
 		return result;
 	}
 }

@@ -8,8 +8,13 @@ public class S03 {
      * @return "positive", "negative", or "zero"
      */
     public static String checkSign(int value) {
-        // TODO
-        return "";
+      String sign = "zero";
+      if(value > 0) {
+    	  return "positive";
+      } else if(value < 0) {
+    	  return "negative";
+      }
+      return sign;
     }
 
     /**
@@ -19,8 +24,11 @@ public class S03 {
      * @return "odd" or "even"
      */
     public static boolean isOdd(int value) {
-        // TODO
-        return false;
+       int resto = value%2;
+       if(resto > 0) {
+    	   return true;
+       }
+       return false;
     }
 
     /**
@@ -30,8 +38,30 @@ public class S03 {
      * @return "zero" for 0 ... "nine" for 9, or "other"
      */
     public static String asWord(int value) {
-        // TODO
-        return "";
+        switch (value) {
+        case 0:
+        	return "zero";
+        case 1:
+			return "one";
+		case 2:
+			return "two";
+		case 3: 
+			return "three";
+		case 4: 
+			return "four";
+		case 5: 
+			return "five";
+		case 6: 
+			return "six";
+		case 7: 
+			return "seven";
+		case 8: 
+			return "eight";
+		case 9: 
+			return "nine";
+		default:
+			return "other";
+		}
     }
 
     /**
@@ -43,8 +73,22 @@ public class S03 {
      * @return a letter in [A, F]
      */
     public static char vote(double percentile) {
-        // TODO
-        return 'F';
+        if(percentile < 0 || percentile > 100) {
+        	throw new IllegalArgumentException("This percentile is not ammissible for vote");
+        }
+    	char vote = 'A';
+    	if(percentile <= 90 && percentile > 80) {
+    		vote = 'B';
+    	} else if(percentile <= 80 && percentile > 70) {
+    		vote = 'C';
+    	} else if(percentile <= 70 && percentile > 60) {
+    		vote = 'D';
+    	} else if(percentile <= 60 && percentile > 50) {
+    		vote = 'E';
+    	} else if(percentile <= 50){
+    		vote = 'F';
+    	}
+        return vote;
     }
 
     /**
@@ -54,8 +98,15 @@ public class S03 {
      * @return true if leap year
      */
     public static boolean isLeapYear(int year) {
-        // TODO
-        return false;
+    	if (year % 4 != 0) {
+    	    return false;
+    	  } else if (year % 400 == 0) {
+    	    return true;
+    	  } else if (year % 100 == 0) {
+    	    return false;
+    	  } else {
+    	    return true;
+    	  }
     }
 
     /**
@@ -68,9 +119,36 @@ public class S03 {
      */
     public static int[] sort(int a, int b, int c) {
         int[] result = new int[3];
-
-        // TODO
-
+        if(a < b && a < c) {
+        	result[0] = a;
+        	if(b < c) {
+        		result[1] = b;
+        		result[2] = c;
+        	} else {
+        		result[1] = c;
+        		result[2] = b;
+        	}
+        }
+        if(b < c && b < a) {
+        	result[0] = b;
+        	if(a < c) {
+        		result[1] = a;
+        		result[2] = b;
+        	} else {
+        		result[1] = b;
+        		result[2] = c;
+        	}
+        }
+        if(c < a && c < b) {
+        	result[0] = c;
+        	if(a < b) {
+        		result[1] = a;
+        		result[2] = b;
+        	} else {
+        		result[1] = b;
+        		result[2] = a;
+        	}
+        }
         return result;
     }
 }

@@ -79,7 +79,23 @@ class S04Test {
 
     @Test
     void fibonacci() {
-        fail("Not yet implemented");
+        long actual = S04.fibonacci(1);
+        
+        assertThat(actual, is(1L));
+    }
+    
+    @Test
+    void fibonacci2() {
+        long actual = S04.fibonacci(2);
+        
+        assertThat(actual, is(3L));
+    }
+    
+    @Test
+    void fibonacci3() {
+        long actual = S04.fibonacci(3);
+        
+        assertThat(actual, is(7L));
     }
 
     @Test

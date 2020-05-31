@@ -1,5 +1,7 @@
 package m2ex;
 
+import java.util.Arrays;
+
 public class S08 {
 	/**
 	 * Binary addition on strings
@@ -15,7 +17,26 @@ public class S08 {
 	 * @throws IllegalArgumentException different sizes
 	 */
 	public static String binarySum(String left, String right) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		if(left.length() != right.length()) {
+			throw new UnsupportedOperationException("Not yet implemented");
+		}
+		StringBuilder result = new StringBuilder();
+		int riporto = 0;
+		int sum = 0;
+		int index = left.length()-1;
+		while(index > 0) {
+			sum += left.charAt(index) - '0';
+			sum += right.charAt(index) - '0';
+			riporto = riporto >> 1;
+			sum = sum & 1;
+	        result.append(sum == 0 ? '0' : '1');
+		}
+		if(riporto > 0) {
+			result.append('1');
+		}
+		result.reverse();
+		return String.valueOf(result);
+		
 	}
 
 	/**
@@ -46,7 +67,13 @@ public class S08 {
 	 * @return the only single value
 	 */
 	public static int getSingle(int[] values) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		Arrays.sort(values);
+		for (int i = 0; i < values.length -1; i++) {
+			if(values[i] != values[i+1]) {
+				return values[i];
+			}
+		}
+		return -1;
 	}
 
 	/**

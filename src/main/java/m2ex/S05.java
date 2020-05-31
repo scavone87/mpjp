@@ -8,8 +8,11 @@ public class S05 {
 	 * @return the input reversed
 	 */
 	public static String reverse(String s) {
-		// TODO
-		return "";
+		StringBuilder sb = new StringBuilder();
+		for (int i = s.length() - 1; i >= 0; i--) {
+			sb.append(s.charAt(i));
+		}
+		return sb.toString();
 	}
 
 	/**
@@ -19,7 +22,9 @@ public class S05 {
 	 * @return true if the parameter is a palindrome
 	 */
 	public static boolean isPalindrome(String s) {
-		// TODO
+		if (s.equalsIgnoreCase(reverse(s))) {
+			return true;
+		}
 		return false;
 	}
 
@@ -30,10 +35,17 @@ public class S05 {
 	 * @return a string, same of input but without vowels
 	 */
 	public static String removeVowels(String s) {
-		// TODO
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < s.length(); i++) {
+			char actual = s.charAt(i);
+			if (actual == 'a' || actual == 'e' || actual == 'i' || actual == 'o' || actual == 'u') {
+				continue;
+			}
+			sb.append(actual);
 
-	           
-		return "";
+		}
+		return sb.toString();
+
 	}
 
 	/**
@@ -44,9 +56,16 @@ public class S05 {
 	 */
 	public static int bin2dec(String s) {
 		// [1][0][0][0][1]
-	    // 43_210
-	    // 2
-		return 0;
+		// 43_210
+		// 2
+		int result = 0;
+		for (int i = 0; i < s.length(); i++) {
+			char actual = s.charAt(i);
+			if (actual == '1') {
+				result += (Math.pow(2, i));
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -56,11 +75,11 @@ public class S05 {
 	 * @return a new array holding the same elements of input, in reversed order
 	 */
 	public static int[] reverse(int[] data) {
-		int[] result = new int[0];
+		for (int i = 0; i < data.length; i++) {
+			data[i] = data[data.length-1- i];
+		}
 
-		// TODO
-
-		return result;
+		return data;
 	}
 
 	/**
@@ -70,8 +89,11 @@ public class S05 {
 	 * @return the average
 	 */
 	public static double average(int[] data) {
-		// TODO
-		return 0;
+		int sum = 0;
+		for (int i = 0; i < data.length; i++) {
+			sum += data[i];
+		}
+		return sum/data.length;
 	}
 
 	/**
@@ -81,7 +103,12 @@ public class S05 {
 	 * @return the largest value
 	 */
 	public static int max(int[] data) {
-		// TODO
-		return Integer.MIN_VALUE;
+		int max = data[0];
+		for (int i = 0; i < data.length; i++) {
+			if(data[i] > max) {
+				max = data[i];
+			}
+		}
+		return max;
 	}
 }
