@@ -1,6 +1,10 @@
 package m2ex;
 
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.sun.net.httpserver.Authenticator.Result;
 
 public class S08 {
 	/**
@@ -20,22 +24,7 @@ public class S08 {
 		if(left.length() != right.length()) {
 			throw new UnsupportedOperationException("Not yet implemented");
 		}
-		StringBuilder result = new StringBuilder();
-		int riporto = 0;
-		int sum = 0;
-		int index = left.length()-1;
-		while(index > 0) {
-			sum += left.charAt(index) - '0';
-			sum += right.charAt(index) - '0';
-			riporto = riporto >> 1;
-			sum = sum & 1;
-	        result.append(sum == 0 ? '0' : '1');
-		}
-		if(riporto > 0) {
-			result.append('1');
-		}
-		result.reverse();
-		return String.valueOf(result);
+		return "";
 		
 	}
 
@@ -52,7 +41,49 @@ public class S08 {
 	 * @return a merge of the two input parameters
 	 */
 	public static int[] mergeSorted(int[] left, int[] right) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		int leftSize = left.length;
+		int rightSize = right.length;
+		int rest = leftSize - rightSize;
+		int[] result = new int[leftSize + rightSize];
+		int resultsize = result.length;
+		if(rest > 0) {
+			while(rest >= 0) {
+				result[resultsize - 1] = left[leftSize - 1];
+				leftSize--;
+				resultsize--;
+				rest--;
+			}
+		}
+		if(rest < 0) {
+			rest = rest * -1;
+			while(rest >= 0) {
+				result[resultsize - 1] = right[rightSize - 1];
+				rightSize--;
+				resultsize--;
+				rest--;
+			}
+		}
+		int i = 0;
+		int j = 0;
+		int k= 0;
+		while(i < left.length  && j < right.length) {
+			if(left[i] < right[j]) {
+				result[k] = left[i];
+				i++;
+				k++;
+			} else if(right[j] < left[i]) {
+				result[k] = right[j];
+				k++;
+				j++;
+			} else {
+				result[k] = left[i];
+				result[k+1] = right[j];
+				i++;
+				k+=2;
+				j++;
+			}
+		}
+		return result;
 	}
 
 	/**
@@ -68,12 +99,14 @@ public class S08 {
 	 */
 	public static int getSingle(int[] values) {
 		Arrays.sort(values);
-		for (int i = 0; i < values.length -1; i++) {
+		for (int i = 0; i < values.length -1; i+=2) {
+			System.out.println(values[i]);
 			if(values[i] != values[i+1]) {
 				return values[i];
 			}
 		}
 		return -1;
+		
 	}
 
 	/**
@@ -88,7 +121,11 @@ public class S08 {
 	 * @return true if no duplicates in
 	 */
 	public static boolean hasOnlyUnique(String s) {
-		throw new UnsupportedOperationException("Not yet implemented");
+		Set<Character> charSet = new HashSet<Character>();
+		for (int i = 0; i < s.length(); i++) {
+			charSet.add(s.charAt(i));
+		}
+		return charSet.size() == s.length();
 	}
 
 	/**
