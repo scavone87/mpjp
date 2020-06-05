@@ -1,6 +1,7 @@
 package m2ex;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class SinkThem {
     static public final char SHIP = 'S';
@@ -25,8 +26,11 @@ public class SinkThem {
      * @param dimension board size
      */
     public SinkThem(int dimension) {
-        // TODO
-        board = new char[0][0];
+       	if(dimension <= 0) {
+       		throw new IllegalArgumentException("This dimension is not possible in this game");
+       	}
+       	this.points = 0;
+        board = new char[dimension][dimension];
     }
 
     /**
@@ -62,8 +66,21 @@ public class SinkThem {
      * @return a string
      */
     public String getBoard() {
-        // TODO
-        return "* * *\n* * *\n* * *\n";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board.length; j++) {
+				char cell = this.board[i][j];
+				if(cell == MISS || cell == WRECK) {
+					sb.append(cell);
+				} else if(j == board.length - 1) {
+					sb.append("\n");
+				}
+				else {
+					sb.append(UNKNOWN);
+				}
+			}
+		}
+        return sb.toString();
     }
 
     /**
@@ -74,7 +91,10 @@ public class SinkThem {
      * @return false if it can't be placed
      */
     public boolean place(int row, int col) {
-        // TODO
+        if(row < this.getBoardSize() && col < this.getBoardSize()) {
+        	this.board[row][col] = SHIP;
+        	return true;
+        }
         return false;
     }
 
@@ -88,7 +108,15 @@ public class SinkThem {
      * @return true for a sink
      */
     public boolean shoot(int row, int col) {
-        // TODO
+        if(row < this.getBoardSize() && col < this.getBoardSize()) {
+        	if(this.board[row][col] == SHIP) {
+        		this.board[row][col] = WRECK;
+        		this.points += POINTS_FOR_SINK;
+        		return true;
+        	}
+        	this.board[row][col] = MISS;
+        	this.points -= POINTS_FOR_MISS;
+        }
         return false;
     }
 
@@ -119,21 +147,62 @@ public class SinkThem {
         }
     }
 
+    public static int schermoMenu(Scanner in) {
+    	System.out.println("+-------------------------------------------+");
+    	System.out.println("+ 0. Esci                                   +");
+    	System.out.println("+ 1. Inserisci dimensione board             +");
+    	System.out.println("+ 2. Mostrami la board                      +");
+    	System.out.println("+ 3. Mostra il punteggio1                   +");
+    	System.out.println("+ 4. Shoot                                  +");
+    	System.out.println("+ 5. Shoot All                              +");
+    	System.out.println("+-------------------------------------------+");
+    	int scelta = in.nextInt();
+    	if(scelta > 0 || scelta < 6) {
+    		return scelta;
+    	} else {
+    		return 0;
+    	}
+    }
+    
+    
+    
     public static void main(String[] args) {
-        // TODO: use Scanner for user interaction
-
+         //TODO: use Scanner for user interaction
+    	System.out.println("Inserisci una dimensione valida");
+    	Scanner scanner = new Scanner(System.in);
+    	SinkThem st = null;
+    	while(scanner.hasNext()) {
+    		if(scanner.hasNextInt()) {
+    			int dimension = scanner.nextInt();
+    		    try {
+    		    	st = new SinkThem(dimension);
+    		    	break;
+    		    } catch(IllegalArgumentException|NullPointerException e) {
+    		    	e.printStackTrace();
+    		    }
+    		} else {
+    			System.out.println("Non hai inserito un valore valido");
+    			return;
+    		}
+    	}
         // TODO: let the player choose for a (sensible) board size
-        SinkThem st = new SinkThem(10);
-
+    	
         // TODO: place the ships randomly instead
         st.place(0, 2);
         st.place(1, 1);
         st.place(2, 0);
 
         // TODO: use Scanner instead
-        shootAll(st);
+        System.out.println("Spara in un punto");
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Inserisci la coordinata x");
+        int x = sc.nextInt();
+        System.out.println("Inserisci la coordinata y");
+        int y = sc.nextInt();
+        
+        st.shoot(x, y);
 
-        System.out.println(st);
+        System.out.println(st.getBoard());
         System.out.println("You scored " + st.getPoints());
     }
 }
