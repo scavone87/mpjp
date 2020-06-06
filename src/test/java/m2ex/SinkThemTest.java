@@ -4,7 +4,6 @@ import static org.hamcrest.Matchers.is;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,13 +18,6 @@ class SinkThemTest {
 		 table.place(1,1);
 		 table.place(1,0);
 	    }
-	
-	@Test
-	void testCreateZeroSinkThem() {
-		Assertions.assertThrows(IllegalArgumentException.class, () -> {
-			new SinkThem(0);
-		});
-	}
 	
 	@Test
 	void testisPossiblePlace00() {
